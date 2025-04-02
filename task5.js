@@ -1,24 +1,13 @@
-let likeCount = 0;
-let shareCount = 0;
-let subscribeCount = 0;
+let counts = { like: 0, share: 0, subscribe: 0 };
 
-document.getElementById('likeBtn').addEventListener('click', function () {
-  likeCount++;
-  document.getElementById('likeCount').textContent = likeCount;
-  console.log('You clicked Like');
-  alert('Thanks for liking!');
-});
+document.getElementById('likeBtn').addEventListener('click', () => handleAction('like'));
+document.getElementById('shareBtn').addEventListener('click', () => handleAction('share'));
+document.getElementById('subscribeBtn').addEventListener('click', () => handleAction('subscribe'));
 
-document.getElementById('shareBtn').addEventListener('click', function () {
-  likeCount++;
-  document.getElementById('likeCount').textContent = shareCount;
-  console.log('You clicked Share');
-  alert('Thanks for sharing!');
-});
+function handleAction(action) {
+  counts[action]++;
+  document.getElementById(`${action}Count`).textContent = counts[action];
+  console.log(`You clicked ${action.charAt(0).toUpperCase() + action.slice(1)}`);
+  alert(`Thanks for ${action}ing!`);
+}
 
-document.getElementById('subscribeBtn').addEventListener('click', function () {
-  subscribeCount++;
-  document.getElementById('likeCount').textContent = subscribeCount;
-  console.log('You clicked Subscribe');
-  alert('Thanks for subscribing!');
-});

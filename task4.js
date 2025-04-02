@@ -173,3 +173,5 @@ function searchEmployees() {
 function clearInputs(...inputs) {
     inputs.forEach(input => input.value = '');
 }
+
+
