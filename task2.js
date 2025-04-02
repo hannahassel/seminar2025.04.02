@@ -1,4 +1,4 @@
-document.getElementById('userForm').addEventListener('submit', function(event) {
+/* document.getElementById('userForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     let valid = true;
@@ -55,4 +55,50 @@ document.getElementById('userForm').addEventListener('submit', function(event) {
     if (valid) {
         alert('Form submitted successfully!');
     }
+}); */
+
+document.getElementById('userForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    let valid = true;
+
+    // Validation rules
+    const fields = [
+        { id: 'email', errorId: 'emailError', rules: [
+            { check: val => val.trim() === '', message: 'Email is required.' },
+            { check: val => !val.includes('@'), message: 'Email is invalid.' }
+        ]},
+        { id: 'password', errorId: 'passwordError', rules: [
+            { check: val => val.trim() === '', message: 'Password is required.' },
+            { check: val => val.length < 6, message: 'Password must be at least 6 characters.' }
+        ]},
+        { id: 'username', errorId: 'usernameError', rules: [
+            { check: val => val.trim() === '', message: 'Username is required.' },
+            { check: val => val.length < 3, message: 'Username must be at least 3 characters.' }
+        ]},
+        { id: 'age', errorId: 'ageError', rules: [
+            { check: val => val.trim() === '', message: 'Age is required.' },
+            { check: val => isNaN(val) || val < 18, message: 'You must be at least 18 years old.' }
+        ]}
+    ];
+
+    // Validate fields dynamically
+    fields.forEach(field => {
+        const inputValue = document.getElementById(field.id).value;
+        const errorElement = document.getElementById(field.errorId);
+        
+        const error = field.rules.find(rule => rule.check(inputValue));
+        if (error) {
+            errorElement.textContent = error.message;
+            valid = false;
+        } else {
+            errorElement.textContent = '';
+        }
+    });
+
+    // Final Submission Check
+    if (valid) {
+        alert('Form submitted successfully!');
+    }
 });
+
